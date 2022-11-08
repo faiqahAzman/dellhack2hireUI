@@ -100,8 +100,8 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
-  List<String> ngos = ["ngo1","ngo2","ngo3"];
-  List<String> ngosDetails = ["ngo nice","ngo good","ngo better"];
+  List<String> ngos = ["Name","Employer ID","T-shirt size"];
+  List<String> ngosDetails = ["Muhammad Faris","01098","M"];
 
   Widget NGOList() {
     return Container(
@@ -118,7 +118,8 @@ class PaymentScreen extends StatelessWidget {
 
                 title: Text(ngos[index]),
                 subtitle: Text(ngosDetails[index]),
-                trailing: Text('Edit'),
+                trailing: Text('Edit',
+                style: TextStyle(color: Colors.blueAccent),),
 
                 selectedTileColor: Colors.blue ,
               );
