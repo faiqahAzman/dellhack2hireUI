@@ -2,7 +2,8 @@ import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:untitled2/login_screen.dart';
+import 'package:untitled2/dependency_screen.dart';
+
 import 'package:untitled2/widgets/textField.dart';
 
 
@@ -23,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
             textField(title: 'Employee ID'),
             shirtSize(),
 
-            nextButton()
+            nextButton(context)
             // waveWithLabel(),
             // form(),
             // verticalSpacing(210),
@@ -177,7 +178,7 @@ class RegisterScreen extends StatelessWidget {
       ),
     );
   }
-  Widget nextButton() {
+  Widget nextButton(context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
 
@@ -189,7 +190,7 @@ class RegisterScreen extends StatelessWidget {
         onPressed: () {
           //move to next seciton
           // Provider.of<Auth>(context, listen: false).signup(emailController.text, passwordController.text);
-          // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => SuccessfulScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => DependencyScreen()));
         },
         child: Text('>', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white,),),
 
