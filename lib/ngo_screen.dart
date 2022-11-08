@@ -1,16 +1,16 @@
-import 'package:dropdown_plus/dropdown_plus.dart';
+
+
 import 'package:flutter/material.dart';
 
 
-
-import 'package:untitled2/ngo_screen.dart';
+import 'package:untitled2/login_screen.dart';
 import 'package:untitled2/register_screen.dart';
 import 'package:untitled2/widgets/progressBar.dart';
-import 'package:untitled2/widgets/textField.dart';
 
 
-class DependencyScreen extends StatelessWidget {
-  const DependencyScreen({super.key});
+
+class NGOScreen extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,16 @@ class DependencyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             backButton(context),
-            const progressBar(step: 'Dependencies', currentStep: 2),
+            const progressBar(step: 'Choose NGO', currentStep: 3),
             const SizedBox(height: 40),
             fillInformationBelow(),
             const SizedBox(height: 20),
-            dependencyTotal(),
-            const textField(title: 'Name'),
-            shirtSize(),
+            NGOList(),
+            const SizedBox(height: 20),
+
+
+
+
 
             nextButton(context)
             // waveWithLabel(),
@@ -68,7 +71,7 @@ class DependencyScreen extends StatelessWidget {
               width: 20, height: 60,
             ),
             Text(
-              'Add Dependencies',
+              'Pick an NGO to pledge to',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -94,35 +97,37 @@ class DependencyScreen extends StatelessWidget {
     );
   }
 
+  List<String> ngos = ["ngo1","ngo2","ngo3"];
+  List<String> ngosDetails = ["ngo nice","ngo good","ngo better"];
 
+  Widget NGOList() {
+    return Container(
+      decoration: BoxDecoration(
 
-  Widget shirtSize() {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: TextDropdownFormField(
-        options: const ["S", "M","L","XL"],
-        decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.arrow_drop_down),
-            labelText: "Shirt Size"),
-        dropdownHeight: 120,
       ),
+      child: ListView.separated(
+      padding: EdgeInsets.zero,
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.grey,
+        ),
+    shrinkWrap: true,
+    itemCount: ngos.length,
+    itemBuilder: (context, index) {
+      return ListTile(
+        leading: CircleAvatar(child: Text(ngos[index][0]),),
+        title: Text(ngos[index]),
+        subtitle: Text(ngosDetails[index]),
+
+        selectedTileColor: Colors.blue ,
+      );
+    })
+
+
     );
   }
 
-  Widget dependencyTotal() {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: TextDropdownFormField(
-        options: const ["1", "2","3","4"],
-        decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.arrow_drop_down),
-            labelText: "Dependencies"),
-        dropdownHeight: 120,
-      ),
-    );
-  }
+
+
   Widget nextButton(context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -135,7 +140,7 @@ class DependencyScreen extends StatelessWidget {
         onPressed: () {
           //move to next seciton
           // Provider.of<Auth>(context, listen: false).signup(emailController.text, passwordController.text);
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => NGOScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
         },
         child: const Text('>', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white,),),
 
