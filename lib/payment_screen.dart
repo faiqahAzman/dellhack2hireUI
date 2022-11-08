@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 
 
-
-import 'package:untitled2/payment_screen.dart';
+import 'package:untitled2/login_screen.dart';
 import 'package:untitled2/register_screen.dart';
 import 'package:untitled2/widgets/progressBar.dart';
+import 'package:untitled2/widgets/twoText.dart';
 
 
 
-class NGOScreen extends StatelessWidget {
+class PaymentScreen extends StatelessWidget {
 
 
   @override
@@ -22,12 +22,15 @@ class NGOScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             backButton(context),
-            const progressBar(step: 'Choose NGO', currentStep: 3),
+            const progressBar(step: 'Payment', currentStep: 4),
             const SizedBox(height: 40),
             fillInformationBelow(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             NGOList(),
             const SizedBox(height: 20),
+            profileInfo(),
+
+
 
 
 
@@ -61,6 +64,8 @@ class NGOScreen extends StatelessWidget {
 
 
 
+
+
   Widget fillInformationBelow() {
     return Column(
 
@@ -69,10 +74,10 @@ class NGOScreen extends StatelessWidget {
         Row(
           children: const [
             SizedBox(
-              width: 20, height: 60,
+              width: 20, height: 20,
             ),
             Text(
-              'Pick an NGO to pledge to',
+              'Profile Summary',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -80,20 +85,7 @@ class NGOScreen extends StatelessWidget {
             ),
           ],
         ),
-        Row(
-          children: const [
-            SizedBox(
-              width: 20,
-            ),
-            Text(
-              'Please enter credentials to proceed',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ],
-        ),
+
       ],
     );
   }
@@ -103,25 +95,24 @@ class NGOScreen extends StatelessWidget {
 
   Widget NGOList() {
     return Container(
-      decoration: BoxDecoration(
+        margin: EdgeInsets.only(left: 15,right: 15),
+        child: ListView.separated(
+            padding: EdgeInsets.zero,
+            separatorBuilder: (context, index) => Divider(
+              color: Colors.grey,
+            ),
+            shrinkWrap: true,
+            itemCount: ngos.length,
+            itemBuilder: (context, index) {
+              return ListTile(
 
-      ),
-      child: ListView.separated(
-      padding: EdgeInsets.zero,
-        separatorBuilder: (context, index) => Divider(
-          color: Colors.grey,
-        ),
-    shrinkWrap: true,
-    itemCount: ngos.length,
-    itemBuilder: (context, index) {
-      return ListTile(
-        leading: CircleAvatar(child: Text(ngos[index][0]),),
-        title: Text(ngos[index]),
-        subtitle: Text(ngosDetails[index]),
+                title: Text(ngos[index]),
+                subtitle: Text(ngosDetails[index]),
+                trailing: Text('Edit'),
 
-        selectedTileColor: Colors.blue ,
-      );
-    })
+                selectedTileColor: Colors.blue ,
+              );
+            })
 
 
     );
@@ -141,11 +132,39 @@ class NGOScreen extends StatelessWidget {
         onPressed: () {
           //move to next seciton
           // Provider.of<Auth>(context, listen: false).signup(emailController.text, passwordController.text);
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => PaymentScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
         },
-        child: const Text('>', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white,),),
+        child: const Text('Confirm Payment', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white,),),
 
       ),
+    );
+  }
+
+  Widget profileInfo(){
+    return Container(
+      margin:  EdgeInsets.only(left: 15.0, right: 15.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.withOpacity(1.0), width: 1),
+        borderRadius: BorderRadius.circular(12),
+
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
+      child: Column(
+
+        children: [
+          twoText(text: 'Lucky Number', desc: '789'),
+          SizedBox(height: 20),
+          twoText(text: 'Food Voucher', desc: 'RM60'),
+          SizedBox(height: 20),
+          twoText(text: 'Registered activites', desc: '>')
+
+
+        ],
+
+      ),
+
+
+
     );
   }
 
