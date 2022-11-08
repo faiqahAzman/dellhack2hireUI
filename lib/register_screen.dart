@@ -1,8 +1,8 @@
 import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/material.dart';
-
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:untitled2/dependency_screen.dart';
+import 'package:untitled2/login_screen.dart';
+import 'package:untitled2/widgets/progressBar.dart';
 
 import 'package:untitled2/widgets/textField.dart';
 
@@ -16,8 +16,8 @@ class RegisterScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            backButton(),
-            progressBar(),
+            backButton(context),
+            progressBar(step: 'Profile', currentStep: 1),
             SizedBox(height: 40),
             fillInformationBelow(),
             textField(title: 'Name'),
@@ -35,10 +35,10 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget backButton() {
+  Widget backButton(context) {
     return GestureDetector(
       onTap: () {
-        //Navigator.canPop(LoginScreen);
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
       },
       child: Row(
         children: [
@@ -125,46 +125,6 @@ class RegisterScreen extends StatelessWidget {
 
   }
 
-  Widget progressBar() {
-    return Column(
-
-
-      children: [
-        Row(
-          children: const [
-            SizedBox(
-              width: 20, height: 60,
-            ),
-            Text(
-              'Profile',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        StepProgressIndicator(
-          totalSteps: 4,
-          currentStep: 1,
-          selectedColor: Color.fromARGB(200, 20, 92, 209),
-          unselectedColor: Colors.grey,
-          padding: 15,
-          size: 5,
-          
-          roundedEdges: Radius.circular(20.0),
-
-        ),
-
-      ],
-
-    );
-
-
-
-
-  }
-
   Widget shirtSize() {
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -178,6 +138,8 @@ class RegisterScreen extends StatelessWidget {
       ),
     );
   }
+
+
   Widget nextButton(context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),

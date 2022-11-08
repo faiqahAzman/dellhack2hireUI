@@ -1,12 +1,16 @@
 import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/material.dart';
 
-import 'package:step_progress_indicator/step_progress_indicator.dart';
+
 import 'package:untitled2/login_screen.dart';
+import 'package:untitled2/register_screen.dart';
+import 'package:untitled2/widgets/progressBar.dart';
 import 'package:untitled2/widgets/textField.dart';
 
 
 class DependencyScreen extends StatelessWidget {
+  const DependencyScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,12 +19,13 @@ class DependencyScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            backButton(),
-            progressBar(),
-            SizedBox(height: 40),
+            backButton(context),
+            const progressBar(step: 'Dependancies', currentStep: 2),
+            const SizedBox(height: 40),
             fillInformationBelow(),
-            textField(title: 'Name'),
-            textField(title: 'Employee ID'),
+            const SizedBox(height: 20),
+            dependencyTotal(),
+            const textField(title: 'Name'),
             shirtSize(),
 
             nextButton(context)
@@ -34,16 +39,16 @@ class DependencyScreen extends StatelessWidget {
     );
   }
 
-  Widget backButton() {
+  Widget backButton(context) {
     return GestureDetector(
       onTap: () {
-        //Navigator.canPop(LoginScreen);
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => RegisterScreen()));
       },
       child: Row(
-        children: [
+        children: const [
           SizedBox(height: 100,width: 20),
           // horizontalSpacing(30),
-          const Icon(Icons.arrow_back_ios_new)
+          Icon(Icons.arrow_back_ios_new)
         ],
       ),
     );
@@ -62,7 +67,7 @@ class DependencyScreen extends StatelessWidget {
               width: 20, height: 60,
             ),
             Text(
-              'Register profile',
+              'Add Dependencies',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -88,91 +93,31 @@ class DependencyScreen extends StatelessWidget {
     );
   }
 
-  Widget emailInput() {
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-
-      child: TextFormField(
-        // controller: emailController,
-        decoration: InputDecoration(
-          labelText: 'Email',
-          labelStyle: const TextStyle(
-            fontSize: 16,
-          ),
-          // border: OutlineInputBorder(
-          //   borderRadius: BorderRadius.circular(8),
-          // ),
-        ),
-        style: const TextStyle(
-          fontSize: 20,
-        ),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Please enter your email';
-          }
-          if (!RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-              .hasMatch(value)) {
-            return 'Please enter a valid email';
-          }
-          return null;
-        },
-        keyboardType: TextInputType.text,
-      ),
-    );
-
-  }
-
-  Widget progressBar() {
-    return Column(
-
-
-      children: [
-        Row(
-          children: const [
-            SizedBox(
-              width: 20, height: 60,
-            ),
-            Text(
-              'Profile',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        StepProgressIndicator(
-          totalSteps: 4,
-          currentStep: 1,
-          selectedColor: Color.fromARGB(200, 20, 92, 209),
-          unselectedColor: Colors.grey,
-          padding: 15,
-          size: 5,
-
-          roundedEdges: Radius.circular(20.0),
-
-        ),
-
-      ],
-
-    );
-
-
-
-
-  }
 
   Widget shirtSize() {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: TextDropdownFormField(
-        options: ["S", "M","L","XL"],
-        decoration: InputDecoration(
+        options: const ["S", "M","L","XL"],
+        decoration: const InputDecoration(
             border: OutlineInputBorder(),
             suffixIcon: Icon(Icons.arrow_drop_down),
             labelText: "Shirt Size"),
+        dropdownHeight: 120,
+      ),
+    );
+  }
+
+  Widget dependencyTotal() {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: TextDropdownFormField(
+        options: const ["1", "2","3","4"],
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            suffixIcon: Icon(Icons.arrow_drop_down),
+            labelText: "Dependencies"),
         dropdownHeight: 120,
       ),
     );
@@ -184,14 +129,14 @@ class DependencyScreen extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(50),
-          backgroundColor: Color.fromARGB(200, 20, 92, 209),
+          backgroundColor: const Color.fromARGB(200, 20, 92, 209),
         ),
         onPressed: () {
           //move to next seciton
           // Provider.of<Auth>(context, listen: false).signup(emailController.text, passwordController.text);
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
         },
-        child: Text('>', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white,),),
+        child: const Text('>', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white,),),
 
       ),
     );
