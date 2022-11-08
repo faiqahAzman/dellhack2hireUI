@@ -1,11 +1,14 @@
 
 
+import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/material.dart';
 
 
 import 'package:untitled2/login_screen.dart';
 import 'package:untitled2/register_screen.dart';
 import 'package:untitled2/widgets/progressBar.dart';
+import 'package:untitled2/widgets/textField.dart';
+import 'package:untitled2/widgets/title.dart';
 import 'package:untitled2/widgets/twoText.dart';
 
 
@@ -29,6 +32,13 @@ class PaymentScreen extends StatelessWidget {
             NGOList(),
             const SizedBox(height: 20),
             profileInfo(),
+            const SizedBox(height: 40),
+            title(text: 'Select Amount'),
+            textField(title: 'Enter Amount'),
+            const SizedBox(height: 20),
+            title(text: 'Payment Details'),
+            paymentChoice(),
+
 
 
 
@@ -174,4 +184,18 @@ class PaymentScreen extends StatelessWidget {
 
 
 
+}
+
+Widget paymentChoice() {
+  return Padding(
+    padding: const EdgeInsets.all(15.0),
+    child: TextDropdownFormField(
+      options: ["Cash", "Credit","Bank"],
+      decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          suffixIcon: Icon(Icons.arrow_drop_down),
+          labelText: "Select Method"),
+      dropdownHeight: 120,
+    ),
+  );
 }
